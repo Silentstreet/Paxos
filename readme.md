@@ -1,6 +1,14 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-28 21:58:03
+ * @LastEditTime: 2021-04-28 23:23:59
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /Codes/readme.md
+-->
 ##### 这个分布式项目基于我面试网易云时被问到的面试题
 
-####分布式需要解决的3个问题：
+#### 分布式需要解决的3个问题：
 1.分布式是时钟：又叫Lamport Clock
 2.一致性问题，分布式系统的几种一致性，以及具体系统实现上的权衡
 3.分布式系统的开发和调试
