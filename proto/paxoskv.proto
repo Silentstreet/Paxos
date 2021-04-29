@@ -1,7 +1,8 @@
 syntax = "proto3";
 
 package paxoskv;
-//这个我还是不懂 proto3里面定义的proto
+//这里为了这个paxoskv.proto新增一个可选的package声明符，用来防止不同的消息类型可能会产生的命名冲突
+//比如说下面产生的这几个类，都会被封装在命名空间中，比如说在paxoskv空间中
 
 //这里定义的PaxosKV我也不是很懂
 service PaxosKV {
