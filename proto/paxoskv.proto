@@ -13,8 +13,8 @@ service PaxosKV {
 // BallotNum is the ballot number in paxos. It consists of monotonically
 // incremental number and a universally unique ProposerId
 message BallotNum {
-    int64_t N = 1;
-    int64_t ProposerId = 2;
+    int64 N = 1;
+    int64 ProposerId = 2;
 }
 
 message Value {
