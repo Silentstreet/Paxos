@@ -4,7 +4,7 @@ package paxoskv;
 //这里为了这个paxoskv.proto新增一个可选的package声明符，用来防止不同的消息类型可能会产生的命名冲突
 //比如说下面产生的这几个类，都会被封装在命名空间中，比如说在paxoskv空间中
 
-//这里定义的PaxosKV我也不是很懂
+//这里定义了RPC消息结构，也就是Acceptor和Proposer之间的通信
 service PaxosKV {
     rpc Prepare (Proposer) returns (Acceptor) {}
     rpc Accept (Proposer) returns ()
@@ -12,6 +12,8 @@ service PaxosKV {
 
 // BallotNum is the ballot number in paxos. It consists of monotonically
 // incremental number and a universally unique ProposerId
+// 为了保证全系统内的BallotNum有序且不重复，
+// 一般的做法就是用一个本地单调递增的整数，和一个全局唯一的id组合起来实现
 message BallotNum {
     int64 N = 1;
     int64 ProposerId = 2;
@@ -25,6 +27,7 @@ message Value {
 // A paxos instance is used to determine a specific version of a record.
 // E.g : for a key-value record foo.=0, to set foo = 2, a paxos instance is
 // created to choose the value for key "foo", ver "1", i.e, foo.
+// 要实现多次修改，就需要增加这个字段来区分不同的paxos实例
 message PaxosInstanceId {
     // the key of a record to operate on.
     string key = 1;
@@ -33,7 +36,10 @@ message PaxosInstanceId {
     int64 Ver = 2;
 }
 
-// Acceptor is the state of an Acceptor and also serves as the reply of the Prepare/Accept.
+// 存储端Acceptor.这里可能需要区分几个概念
+// LsatBal Acceptor看到的最大Bal，记住这个值来识别哪个proposer可以写
+// Val 
+// VBal 这一轮Paxos的编号，BallotNum，此时被Acceptor接受
 message Acceptor {
     // the last ballot number the instance knows of.
     BallotNum LastBal = 1;
